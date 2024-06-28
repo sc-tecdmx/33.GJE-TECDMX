@@ -9,6 +9,7 @@ class Asuntos extends Model
 {
     use HasFactory;
     protected $table = "aofi_medio_impugnacion";
+    protected $primaryKey = 'n_id_medio_impugnacion';
     
     protected $fillable = [ 
         /* 1ra etapa */

@@ -9,6 +9,7 @@ class Magistrados extends Model
 {
     use HasFactory;
     protected $table = "cat_jel_magistrado";
+    protected $primaryKey = 'n_id_magistrado';
 
     protected $fillable = [ 
         's_desc_magistrado',

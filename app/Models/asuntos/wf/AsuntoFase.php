@@ -9,6 +9,8 @@ class AsuntoFase extends Model
 {
     use HasFactory;
     protected $table = "bwf_medio_fase";
+    protected $primaryKey = 'n_id_medio_fase';
+
     protected $fillable = [ 
         'n_id_fase',
         'n_id_medio_impugnacion',

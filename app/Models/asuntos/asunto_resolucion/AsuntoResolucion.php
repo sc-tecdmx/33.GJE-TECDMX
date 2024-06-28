@@ -9,6 +9,7 @@ class AsuntoResolucion extends Model
 {
     use HasFactory;
     protected $table = "fre_resolucion";
+    protected $primaryKey = ['n_id_resolucion', 'n_id_medio_impugnacion'];
 
     protected $fillable = [ 
         'n_id_medio_impugnacion',

@@ -9,6 +9,7 @@ class Votacion extends Model
 {
     use HasFactory;
     protected $table = "fre_votacion";
+    protected $primaryKey = ['n_id_resolucion', 'n_id_magistrado'];
 
     protected $fillable = [ 
         'n_id_resolucion',

@@ -9,6 +9,7 @@ class AsuntoTematicas extends Model
 {
     use HasFactory;
     protected $table = "cpon_medio_tematica";
+    /* protected $primaryKey = ['n_id_medio_impugnacion', 'n_id_tematica']; */
 
     protected $fillable = [ 
         'n_id_medio_impugnacion',

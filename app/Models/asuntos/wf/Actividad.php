@@ -9,6 +9,8 @@ class Actividad extends Model
 {
     use HasFactory;
     protected $table = "bwf_actividad";
+    protected $primaryKey = 'n_id_actividad';
+
     protected $fillable = [ 
         's_nombre',
         's_descripcion',

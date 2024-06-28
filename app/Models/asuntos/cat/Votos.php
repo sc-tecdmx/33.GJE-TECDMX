@@ -9,6 +9,7 @@ class Votos extends Model
 {
     use HasFactory;
     protected $table = "cat_jel_tipo_voto";
+    protected $primaryKey = 'n_id_tipo_voto';
 
     protected $fillable = [ 
         's_nombre',

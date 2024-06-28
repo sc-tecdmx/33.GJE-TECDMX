@@ -9,6 +9,7 @@ class Tematicas extends Model
 {
     use HasFactory;
     protected $table = "cat_jel_tematica";
+    protected $primaryKey = 'n_id_tematica';
 
     protected $fillable = [ 
         's_nombre',

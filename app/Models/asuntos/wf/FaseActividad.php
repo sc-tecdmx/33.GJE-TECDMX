@@ -9,6 +9,8 @@ class FaseActividad extends Model
 {
     use HasFactory;
     protected $table = "bwf_fase_actividad";
+    /* protected $primaryKey = ['n_id_actividad', 'n_id_fase_actual','n_id_fase_destino']; */
+
     protected $fillable = [ 
         'n_id_actividad',
         'n_id_fase_actual',

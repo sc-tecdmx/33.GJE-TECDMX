@@ -9,6 +9,7 @@ class Resoluciones extends Model
 {
     use HasFactory;
     protected $table = "cat_jel_tipo_resolucion";
+    protected $primaryKey = 'n_id_tipo_resolucion';
 
     protected $fillable = [ 
         's_nombre',
