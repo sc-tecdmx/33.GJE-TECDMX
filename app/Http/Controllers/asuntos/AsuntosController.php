@@ -13,13 +13,13 @@ class AsuntosController extends ApiController
 {
     protected $db_model = Asuntos::class;
 
-    public function store(Request $request){
+     /*public function store(Request $request){
         return response()->json(
             [   'status' => "success",
                 'message' => 'Registro exitoso',
                 'data' => [$request->src_jel_sentencia] 
             ], 200);
-        /* try {
+        try {
             $request->file('src_jel_sentencia')->store('public');
             $_db_model = $this->db_model::create($request->all());
             $_db_model->save();
@@ -34,8 +34,8 @@ class AsuntosController extends ApiController
                 'message' => 'Error al crear el registro' ,
                 'exception' => $ex->getMessage()
             ], 404);
-        } */
-    }
+        } 
+    }*/
     
     //Leer todas los asuntos
     /* public function index()
