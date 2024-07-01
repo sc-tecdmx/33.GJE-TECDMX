@@ -30,11 +30,6 @@ use App\Http\Controllers\asuntos\wf\FaseActividadController;
 use App\Http\Controllers\asuntos\wf\AsuntoFaseController;
 
 Route::controller(AsuntosController::class)->prefix("asuntos")->group(function () {
-    /* Route::get('get_all', 'index');
-    Route::post('create', 'store');
-    Route::post('update/{id_record}', 'update');
-    Route::get('get_one/{id_record}', 'show');
-    Route::get('delete/{id_record}', 'destroy'); */
     Route::get('/', 'index');
     Route::post('/', 'store');
     Route::put('/{id_record}', 'update');
@@ -56,60 +51,84 @@ Route::controller(MediosController::class)->prefix("cat/medios")->group(function
 Route::controller(TematicasController::class)->prefix("cat/tematicas")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 Route::controller(MagistradosController::class)->prefix("cat/magistrados")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 Route::controller(VotosController::class)->prefix("cat/votos")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 Route::controller(ResolucionesController::class)->prefix("cat/resoluciones")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 Route::controller(AutoridadesController::class)->prefix("cat/autoridades")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 /* Sección 2 */
 Route::controller(AsuntoTematicasController::class)->prefix("asunto/tematicas")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 /* Sección 3 */
 Route::controller(AsuntoResolucionController::class)->prefix("asunto/resolucion")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 Route::controller(VotacionController::class)->prefix("asunto/resolucion/votacion")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
 /* WF */
 Route::controller(FaseController::class)->prefix("asunto/wf/fases")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 Route::controller(ActividadController::class)->prefix("asunto/wf/actividades")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 Route::controller(FaseActividadController::class)->prefix("asunto/wf/fases/actividades")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 Route::controller(AsuntoFaseController::class)->prefix("asunto/wf/asunto/fase")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
+    Route::put('/{id_record}', 'update');
+    Route::delete('/{id_record}', 'destroy');
 });
 
