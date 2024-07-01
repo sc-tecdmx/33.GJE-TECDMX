@@ -30,7 +30,7 @@ return new class extends Migration
             $table->longText('s_jel_desc_acto_impugnado');
             $table->string('s_jel_tercer_interesado', 150);
             $table->date('d_fecha_recepcion_turno');
-            $table->foreignId('n_id_magistrado')->references('n_id_magistrado')->on('cat_jel_magistrado')->onDelete('cascade');
+            $table->foreignId('n_id_magistrado')->nullable()->references('n_id_magistrado')->on('cat_jel_magistrado')->onDelete('cascade');
             /*  */
 
             /* 2da etapa -> INSTRUCCION (FT)*/
