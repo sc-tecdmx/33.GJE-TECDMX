@@ -29,6 +29,7 @@ class Asuntos extends Model
         's_jel_desc_acto_impugnado',
         's_jel_tercer_interesado',
         'd_fecha_recepcion_turno',
+        "n_id_magistrado",
 
          /* 2da etapa -> INSTRUCCION (FT)*/
         'd_fecha_radicacion',
