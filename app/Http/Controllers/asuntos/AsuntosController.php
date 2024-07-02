@@ -12,6 +12,7 @@ use App\Models\asuntos\Asuntos;
 class AsuntosController extends ApiController
 {
     protected $db_model = Asuntos::class;
+    
 
      /*public function store(Request $request){
         return response()->json(

@@ -17,7 +17,14 @@ return new class extends Migration
             $table->date('d_fecha_recepcion');
             $table->string('s_expediente', 50)->nullable(); /* form1 */
             $table->string('s_jel_parte_actora', 150);
+            $table->string('s_jel_autoridad_responsable', 150);
             $table->string('s_jel_tipo_acto_impugnado', 50);
+
+            $table->string('s_jel_efectos', 450);
+            $table->string('s_numero_votos', 450);
+            $table->string('s_resumen', 450);
+            
+            
             /* form1 */
             $table->string('s_via_recepcion', 100)->nullable();
             $table->string('s_unidad_territorial', 100)->nullable();

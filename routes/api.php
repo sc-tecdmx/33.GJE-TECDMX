@@ -29,6 +29,10 @@ use App\Http\Controllers\asuntos\wf\ActividadController;
 use App\Http\Controllers\asuntos\wf\FaseActividadController;
 use App\Http\Controllers\asuntos\wf\AsuntoFaseController;
 
+Route::prefix('gje')->group(function () {
+    Route::apiResource('/asuntos'            , AsuntosController::class);
+});
+
 Route::controller(AsuntosController::class)->prefix("asuntos")->group(function () {
     Route::get('/', 'index');
     Route::post('/', 'store');
