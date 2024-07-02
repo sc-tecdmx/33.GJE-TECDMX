@@ -23,6 +23,16 @@ class Asuntos extends Model
         's_demarcacion',
         'b_vinculado',
         'b_reencauzamiento',
+        /**  extras*/
+        's_tmp_hora_recepcion',
+        's_tmp_ponencia_instructora',
+        's_tmp_autoridad_responsable',
+        's_tmp_tematica',
+        's_tmp_efectos',
+        's_numero_votos',
+        's_tmp_instruccion',
+        's_tmp_tipo_de_medio',
+        's_tmp_resumen',
         /*  */
         'd_fecha_aviso',
         'n_id_tipomedio',
