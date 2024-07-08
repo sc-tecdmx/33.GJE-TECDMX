@@ -9,5 +9,5 @@ use Illuminate\Http\Request;
 class AcuerdosController extends ApiController
 {
     protected $db_model = Acuerdos::class;
-
+    
 }

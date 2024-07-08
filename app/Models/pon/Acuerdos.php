@@ -4,6 +4,7 @@ namespace App\Models\pon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Acuerdos extends Model
 {
@@ -14,4 +15,7 @@ class Acuerdos extends Model
   
     protected $guarded = [];
     public $timestamps = false;
+
+   
+
 }

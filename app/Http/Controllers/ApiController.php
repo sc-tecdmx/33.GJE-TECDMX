@@ -60,7 +60,13 @@ class ApiController extends Controller
     {
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );
-            return $_db_model ;
+            //return $_db_model ;
+            return response()->json(
+                [   'status' => "success",
+                    'message' => 'Solicitud exitosa',
+                    'data' => $_db_model
+                ], 200);
+
         } catch (QueryException $ex) {
             error_log ("show ::" .$ex->getMessage() );
             return response()->json([

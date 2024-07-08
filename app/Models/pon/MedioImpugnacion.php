@@ -4,6 +4,7 @@ namespace App\Models\pon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedioImpugnacion extends Model
 {
@@ -14,5 +15,10 @@ class MedioImpugnacion extends Model
   
     protected $guarded = [];
     public $timestamps = false;
+
+    public function ponencia(): HasOne
+    {
+        return $this->hasOne(Ponencia::class,'n_id_ponencia');
+    }
 
 }
