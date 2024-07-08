@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('s_jel_tercer_interesado', 150);
             $table->date('d_fecha_recepcion_turno');
             $table->foreignId('n_id_magistrado')->nullable()->references('n_id_magistrado')->on('cat_jel_magistrado')->onDelete('cascade');
+            $table->string('s_tmp_ponencia_instructora', 150);
             /*  */
 
             /* 2da etapa -> INSTRUCCION (FT)*/
