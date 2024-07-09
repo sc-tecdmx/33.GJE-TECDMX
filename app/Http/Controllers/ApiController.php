@@ -23,7 +23,7 @@ class ApiController extends Controller
                 ], 200);
         } catch (QueryException $ex) {
 
-            error_log ("index ::" .$ex->getMessage() );
+            error_log ("ERR! index ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
                 'message' => 'Error al obtener los registros' ,
@@ -35,7 +35,7 @@ class ApiController extends Controller
     public function store(Request $request)
     {
         //echo "store ---" 
-        error_log('store :::: ' ) ;
+        error_log('INFO store :::: ' ) ;
         error_log(json_encode($request->all()));
         try {
             $_db_model = $this->db_model::create($request->all());
@@ -47,7 +47,7 @@ class ApiController extends Controller
                 ], 200);
         } catch (QueryException $ex) {
 
-            error_log ("store ::" .$ex->getMessage() );
+            error_log ("ERR! store ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
                 'message' => 'Error al crear el registro' ,
@@ -68,67 +68,70 @@ class ApiController extends Controller
                 ], 200);
 
         } catch (QueryException $ex) {
-            error_log ("show ::" .$ex->getMessage() );
+            error_log ("ERR!  show ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'mensaje' => 'Error al crear el Registro: ',
-                'excepcion' => $ex->getMessage()
+                'message' => 'Error al crear el Registro: ',
+                'exception' => $ex->getMessage()
             ], 400);
         }
     }
 
     public function update(Request $request, $id_record)
     {
-        
+        error_log('update :::: ' ) ;
+        error_log(json_encode($request->all()));
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );
             $_db_model->update( $request->all() ) ;
             return response()->json([
                 'status' => "success", 
-                'data' => [ $_db_model ] ], 200);
+                'message' => 'Actualización exitosa',
+                'data' => $_db_model  
+            ], 200);
         } catch (ModelNotFoundException $ex){
-            error_log ("update ::" .$ex->getMessage() );
+            error_log ("ERR! 1 update ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'mensaje' => "Registro no encontrado " . $id_record,
-                'excepcion' => $ex->getMessage()
+                'message' => "Registro no encontrado " . $id_record,
+                'exception' => $ex->getMessage()
             ], 400);
         } catch (QueryException $ex) {
-            error_log ("update ::" .$ex->getMessage() );
+            error_log ("ERR! 2 update ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'mensaje' => 'Error al actualizar el item ' . $id_record ,
-                'excepcion' => $ex->getMessage()
+                'message' => 'Error al actualizar el item ' . $id_record ,
+                'exception' => $ex->getMessage()
             ], 400);
         } catch (Exception $ex) {
-            error_log ("update ::" .$ex->getMessage() );
+            error_log ("ERR! 3 update ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'mensaje' => 'Error general ' ,
-                'excepcion' => $ex->getMessage()
+                'message' => 'Error general ' ,
+                'exception' => $ex->getMessage()
             ], 400);
         }
     }
 
     public function destroy($id_record)
     {
-        
         try {
             $_db_model = $this->db_model::findOrFail($id_record);
             $_db_model->delete();
-            return response()->json(['status' => "success", 'data' => [$_db_model ] ], 200);
+            return response()->json(['status' => "success", 'data' => $_db_model ], 200);
         } catch (ModelNotFoundException $ex){
-            error_log ("destroy ::" .$ex->getMessage() );
+            error_log ("ERR! 1 destroy ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'mensaje' => "Registro no encontrado " . $id_record,
-                'excepcion' => $ex->getMessage()
+                'message' => "Registro no encontrado " . $id_record,
+                'exception' => $ex->getMessage()
             ], 404);
         } catch (QueryException $ex) {
+            error_log ("ERR! 2 destroy ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'mensaje' => 'Error al eliminar el registro ' ,
-                'excepcion' => $ex->getMessage()
+                'message' => 'Error al eliminar el registro ' ,
+                'exception' => $ex->getMessage()
             ], 404);
         }
     }
