@@ -43,7 +43,7 @@ class ApiController extends Controller
             return response()->json(
                 [   'status' => "success",
                     'message' => 'Registro exitoso',
-                    'data' => [$_db_model] 
+                    'data' => $_db_model
                 ], 200);
         } catch (QueryException $ex) {
 
