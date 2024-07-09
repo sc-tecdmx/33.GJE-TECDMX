@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    /* Version 0.1 */
     protected $db_model;
     
     public function index()
