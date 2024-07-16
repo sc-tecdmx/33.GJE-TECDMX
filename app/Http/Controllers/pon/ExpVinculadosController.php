@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\pon\cat;
+namespace App\Http\Controllers\pon;
 use App\Http\Controllers\ApiController;
-use App\Models\pon\cat\TipoAcuerdo;
+
+use App\Models\pon\ExpVinculados;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TipoAcuerdoController extends ApiController
+class ExpVinculadosController extends ApiController
 {
-    protected $db_model = TipoAcuerdo::class;
-
-    public function byTipoAcuerdo(string $s_tipo){
+    protected $db_model = ExpVinculados::class;
+    public function byIdMedio(string $id_medio){
+        error_log('ExpVinculadosController:byIdMedio: ' . $id_medio ) ;
         try {
 
-            $all_records = TipoAcuerdo::where('s_tipo', $s_tipo)->get();
+            $all_records = ExpVinculados::where('n_id_medio_impugnacion', $id_medio)->get();
             return response()->json(
                 [   'status' => "success",
                     'message' => 'Solicitud exitosa',
@@ -24,7 +25,7 @@ class TipoAcuerdoController extends ApiController
             error_log ("ERR!  show ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'message' => 'Error al obtener los registros ',
+                'message' => 'Error al obtener los registros. ',
                 'exception' => $ex->getMessage()
             ], 400);
         }

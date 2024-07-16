@@ -61,7 +61,6 @@ class ApiController extends Controller
     {
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );
-            //return $_db_model ;
             return response()->json(
                 [   'status' => "success",
                     'message' => 'Solicitud exitosa',
@@ -77,6 +76,7 @@ class ApiController extends Controller
             ], 400);
         }
     }
+
 
     public function update(Request $request, $id_record)
     {
