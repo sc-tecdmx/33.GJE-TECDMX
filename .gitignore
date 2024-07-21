@@ -18,3 +18,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.env .produccion
+.env .produccion
+.env .produccion
+.env .produccion
+.env .produccion
+.env .produccion
+*.produccion
