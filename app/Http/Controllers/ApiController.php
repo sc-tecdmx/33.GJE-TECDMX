@@ -33,6 +33,8 @@ class ApiController extends Controller
         }
     }
 
+    
+
     public function store(Request $request)
     {
         //echo "store ---" 
@@ -52,6 +54,30 @@ class ApiController extends Controller
             return response()->json([
                 'status' => "Error",
                 'message' => 'Error al crear el registro' ,
+                'exception' => $ex->getMessage()
+            ], 400);
+        }
+    }
+    /**
+     * {{api-asuntos}}/api/gje/medio/s_email_autor/isai.fararoni@tecdmx.org.mx
+     * {{api-asuntos}}/api/gje/medio/s_publicacion/Publicar
+     */
+    public function showByWhere(string $field, string $value)
+    {
+        try {
+            $_db_model = $this->db_model::where( $field, $value )->get();
+
+            return response()->json(
+                [   'status' => "success",
+                    'message' => 'Solicitud exitosa',
+                    'data' => $_db_model
+                ], 200);
+
+        } catch (QueryException $ex) {
+            error_log ("ERR!  show ::" .$ex->getMessage() );
+            return response()->json([
+                'status' => "Error",
+                'message' => 'Error al crear el Registro: ',
                 'exception' => $ex->getMessage()
             ], 400);
         }

@@ -47,6 +47,8 @@ use App\Http\Controllers\asuntos\wf\AsuntoFaseController;
 
 Route::prefix('gje')->group(function () {
     Route::apiResource ('/medio'            , MedioImpugnacionController::class);
+    Route::get('/medio/{field}/{value}', [MedioImpugnacionController::class, 'showByWhere']);
+
     Route::apiResource ('/medio-tematica'   , MedioTematicaController::class);
     Route::apiResource ('/acuerdos'         , AcuerdosController::class);
 
