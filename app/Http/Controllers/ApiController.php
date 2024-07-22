@@ -77,7 +77,7 @@ class ApiController extends Controller
             error_log ("ERR!  show ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
-                'message' => 'Error al crear el Registro: ',
+                'message' => 'Error al consultar el Registro: /' . $field . '/' .$value ,
                 'exception' => $ex->getMessage()
             ], 400);
         }

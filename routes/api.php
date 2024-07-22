@@ -51,6 +51,7 @@ Route::prefix('gje')->group(function () {
 
     Route::apiResource ('/medio-tematica'   , MedioTematicaController::class);
     Route::apiResource ('/acuerdos'         , AcuerdosController::class);
+    Route::get ('/acuerdos/{field}/{value}' ,[AcuerdosController::class, 'showByWhere']);
 
     Route::apiResource ('/vinculados'       , ExpVinculadosController::class);
     Route::get('/vinculados/medio/{id_medio}', [ExpVinculadosController::class, 'byIdMedio']);
@@ -60,6 +61,7 @@ Route::prefix('gje')->group(function () {
     Route::apiResource ('/cat/ponencia'         , PonenciaController::class);
     Route::apiResource ('/cat/tematica'         , TematicaController::class);
     Route::apiResource ('/cat/tipo-acuerdo'         , TipoAcuerdoController::class);
+    Route::get('/cat/tipo-acuerdo/{field}/{value}', [TipoAcuerdoController::class, 'showByWhere']);
 
     Route::get('/cat/tipo-acuerdo/tipo/{s_tipo}', [TipoAcuerdoController::class, 'byTipoAcuerdo']);
 
