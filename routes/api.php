@@ -65,6 +65,8 @@ Route::prefix('gje')->group(function () {
 
     Route::get('/cat/tipo-acuerdo/tipo/{s_tipo}', [TipoAcuerdoController::class, 'byTipoAcuerdo']);
 
+    Route::post('/upload'                   , [FileController::class, 'upload']);
+    
     Route::post('/enviarSentencia', [FileController::class, 'enviarSentencia']);
     Route::get('/sentencia/{file}', [FileController::class, 'getSentencia']);
 });
