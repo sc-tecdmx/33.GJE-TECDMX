@@ -106,7 +106,7 @@ class ApiController extends Controller
 
     public function update(Request $request, $id_record)
     {
-        error_log('update :::: ' ) ;
+        error_log('update :['.$this->db_model.']:' ) ;
         error_log(json_encode($request->all()));
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );

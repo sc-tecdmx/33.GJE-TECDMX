@@ -13,7 +13,12 @@ class MedioImpugnacion extends Model
     protected $table = 'pon_medio_impugnacion';
     protected $primaryKey = 'n_id_medio_impugnacion';
   
-    protected $guarded = [];
+    protected $guarded = [
+        'file__s_url_sentencia_doc'
+        ,'file__s_url_sentencia_pdf'
+        ,'file__s_url_infografia'];
+    
+
     public $timestamps = false;
 
     public function ponencia(): HasOne

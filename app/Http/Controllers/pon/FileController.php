@@ -28,6 +28,36 @@ class FileController extends Controller
         $docExpediente = new DocExpedienteController();
         $docExpediente->store($request);
     }
+
+    public function uploadB64( $json_obj ){
+        $decoded_json = json_decode($json_obj ) ;
+
+        try {
+            $obj = json_decode($json_obj);
+            $s_path_repositorio     = $obj->s_path_repositorio;
+            $s_file_repositorio     = $obj->s_file_repositorio;
+            $content                = base64_decode($obj->file_base64);
+            $destino = env('GJE_PATH_SENTENCIAS', '/gje') . $s_path_repositorio  .'/' .$s_file_repositorio;
+            $path = Storage::disk('s3')->put( $destino, $content);
+            $url = Storage::url($path);
+          //  $resultdb = $this->saveDocExpediente($obj);
+          //  error_log( $resultdb ) ;
+            return response()->json(
+                [   'status' => "success",
+                    'message' => 'Archivo guardado:' . $destino ,
+                    'data' => $path
+                ], 200);
+
+        } catch (Exception $ex) {
+            error_log ("ERR! index ::" .$ex->getMessage() );
+            return response()->json([
+                'status' => "Error",
+                'message' => 'Error [uploadB64] al cargar el archivo.' ,
+                'exception' => $ex->getMessage()
+            ], 400);
+        }
+        error_log('FileController 1- uploadB64 -okok-' ) ;
+    }
     public function upload(Request $request)
     {
 
