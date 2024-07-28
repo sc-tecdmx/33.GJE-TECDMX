@@ -74,6 +74,7 @@ class MedioImpugnacionController extends ApiController
             *     s_file_repositorio      archivo4.pdf
             *     d_doc_fecha_hora        2024-07-01 10:40
             */
+/*            
             //-- 1.- s_url_sentencia_pdf
             $data = array (
                 'n_id_medio_impugnacion' => $request->input('n_id_medio_impugnacion'),
@@ -115,7 +116,7 @@ class MedioImpugnacionController extends ApiController
             $data_json = json_encode($data) ;
             $file_upload->uploadB64($data_json);
 
-
+*/
 
             return parent::update($request, $id_record);
         } catch (Exception $ex) {

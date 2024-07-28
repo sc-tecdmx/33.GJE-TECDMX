@@ -13,9 +13,6 @@ class Acuerdos extends Model
     protected $table = 'pon_acuerdos';
     protected $primaryKey = 'n_id_acuerdo';
   
-    protected $guarded = [];
+    protected $guarded = ['file__b64_s_url_sentencia_pdf'];
     public $timestamps = false;
- 
-   
-
 }
