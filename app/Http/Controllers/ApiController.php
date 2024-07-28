@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    /* Version 0.1 */
+    /* Version 0.2 */
     protected $db_model;
     
     public function index()
-    {   try {
+    {
+        error_log('::ApiController.index ----------' . $this->db_model ) ;
+           try {
             $all_records = $this->db_model::all();
             //-- return ;
             return response()->json(
@@ -37,9 +39,7 @@ class ApiController extends Controller
 
     public function store(Request $request)
     {
-        //echo "store ---" 
-        error_log('INFO store :::: ' ) ;
-        error_log(json_encode($request->all()));
+        error_log('::ApiController.store ----------' . $this->db_model ) ;
         try {
             $_db_model = $this->db_model::create($request->all());
             /* $_db_model->save(); */
@@ -64,6 +64,7 @@ class ApiController extends Controller
      */
     public function showByWhere(string $field, string $value)
     {
+        error_log('::ApiController.showByWhere ----------' . $this->db_model) ;
         try {
             $_db_model = $this->db_model::where( $field, $value )->get();
 
@@ -85,6 +86,7 @@ class ApiController extends Controller
 
     public function show( $id_record )
     {
+        error_log('::ApiController.show ---------- '. $this->db_model .'[' . $id_record . ']' ) ;
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );
             return response()->json(
@@ -106,8 +108,8 @@ class ApiController extends Controller
 
     public function update(Request $request, $id_record)
     {
-        error_log('update :['.$this->db_model.']:' ) ;
-        error_log(json_encode($request->all()));
+        
+        error_log('::ApiController.update ----------'. $this->db_model .'[' . $id_record . ']' ) ;
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );
             $_db_model->update( $request->all() ) ;
@@ -161,5 +163,10 @@ class ApiController extends Controller
                 'exception' => $ex->getMessage()
             ], 404);
         }
+    }
+
+    public function isStrVacio( $str ){
+        $resultado = ! ( $str !== null  && $str !==''  && strlen($str) > 0  );
+        return  $resultado  ;
     }
 }

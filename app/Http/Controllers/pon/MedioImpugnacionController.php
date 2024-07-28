@@ -10,6 +10,30 @@ use App\Http\Controllers\pon\FileController;
 class MedioImpugnacionController extends ApiController
 {
     protected $db_model = MedioImpugnacion::class;
+
+    private function upload(Request $request){
+
+        error_log('-------> MedioImpugnacion:upload' .$request->input('s_url_infografia') . ' size ' . strlen($request->input('file__b64_s_url_infografia') . ']') );
+        if (! $this->isStrVacio($request->input('file__b64_s_url_infografia') ) 
+            && ! $this->isStrVacio($request->input('s_url_infografia')) ) {
+                
+            $response_pdf;
+            $pdf = new DocumentoUpload(
+                'infografia',
+                'pdf' ,
+                '/2024/infografia',
+                $request->input('s_url_infografia'),
+                $request->input('file__b64_s_url_infografia')
+            );
+            $file_upload = new FileController();
+            $response_pdf = json_decode($file_upload->uploadB64( $pdf ), true);
+            if ($response_pdf['status'] =='success') {
+                $request["s_url_infografia"] =  $response_pdf['data']['url_public'];
+            }
+        }
+        return $request;
+    }
+
     public function index()
     {   try {
            
@@ -65,58 +89,7 @@ class MedioImpugnacionController extends ApiController
     public function update(Request $request, $id_record)
     {
         try {
-            /**
-             *  Guardar los archivos adjuntos de acuerdos
-            *     n_id_medio_impugnacion  1
-            *     s_expediente            TEDF-JEL-001089/2013
-            *     s_tipo_documento        sentencia
-            *     s_path_repositorio      /gje/2024
-            *     s_file_repositorio      archivo4.pdf
-            *     d_doc_fecha_hora        2024-07-01 10:40
-            */
-/*            
-            //-- 1.- s_url_sentencia_pdf
-            $data = array (
-                'n_id_medio_impugnacion' => $request->input('n_id_medio_impugnacion'),
-                's_expediente' =>  $request->input('s_expediente'),
-                's_tipo_documento' =>  $request->input('Sentencia'),
-                's_path_repositorio' =>  '/gje/2024/sentencia',
-                's_file_repositorio' =>  $request->input('s_url_sentencia_pdf'),
-                'd_doc_fecha_hora' => date('Y-m-d G:i'),
-                "file_base64" => $request->input('file__b64_s_url_sentencia_pdf'),
-            );
-            $file_upload = new FileController();
-            $data_json = json_encode($data) ;
-            $file_upload->uploadB64($data_json);
-
-            //-- 2.- s_url_sentencia_docx
-            $data = array (
-                'n_id_medio_impugnacion' => $request->input('n_id_medio_impugnacion'),
-                's_expediente' =>  $request->input('s_expediente'),
-                's_tipo_documento' =>  $request->input('Sentencia'),
-                's_path_repositorio' =>  '/gje/2024/sentencia',
-                's_file_repositorio' =>  $request->input('s_url_sentencia_doc'),
-                'd_doc_fecha_hora' => date('Y-m-d G:i'),
-                "file_base64" => $request->input('file__b64_s_url_sentencia_doc'),
-            );
-            $file_upload = new FileController();
-            $data_json = json_encode($data) ;
-            $file_upload->uploadB64($data_json);
-            //-- 3.- infografia
-            $data = array (
-                'n_id_medio_impugnacion' => $request->input('n_id_medio_impugnacion'),
-                's_expediente' =>  $request->input('s_expediente'),
-                's_tipo_documento' =>  $request->input('Sentencia'),
-                's_path_repositorio' =>  '/gje/2024/sentencia',
-                's_file_repositorio' =>  $request->input('s_url_infografia'),
-                'd_doc_fecha_hora' => date('Y-m-d G:i'),
-                "file_base64" => $request->input('file__b64_s_url_infografia'),
-            );
-            $file_upload = new FileController();
-            $data_json = json_encode($data) ;
-            $file_upload->uploadB64($data_json);
-
-*/
+            $request = $this->upload($request);
 
             return parent::update($request, $id_record);
         } catch (Exception $ex) {
@@ -128,6 +101,21 @@ class MedioImpugnacionController extends ApiController
             ], 400);
         }
         
+    }
+    public function store(Request $request)
+    {
+        error_log("---------| MedioImpugnacion store |--------- --[". $request->input('n_id_medio_impugnacion') . "]:[".$request->input('s_url_infografia'). "]--");
+        try {
+            $request = $this->upload($request);
+            return parent::store($request);
+        } catch (Exception $ex) {
+            error_log ("ERR! MedioImpugnacion::child->store ::" .$ex->getMessage() );
+            return response()->json([
+                'status' => "Error",
+                'message' => 'Error MedioImpugnacion ' ,
+                'exception' => $ex->getMessage()
+            ], 400);
+        }
     }
 
 }
