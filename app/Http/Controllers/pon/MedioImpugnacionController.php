@@ -62,13 +62,22 @@ class MedioImpugnacionController extends ApiController
     public function show( $id_record )
     {
         try {
-            /// $_db_model = $this->db_model::findOrFail( $id_record );
             $all_records = MedioImpugnacion::
             where('n_id_medio_impugnacion', $id_record)
-          ->leftJoin('cat_ponencia', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_autoridad_responsable')
+          ->leftJoin('cat_ponencia', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_ponencia_instructora')
+          ->leftJoin('cat_ponencia as cat_ponencia_returno', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_ponencia_returno')
           ->leftJoin('cat_autoridad_responsable', 'cat_autoridad_responsable.n_id_autoridad_responsable','=','pon_medio_impugnacion.n_id_autoridad_responsable')
           ->leftJoin('cat_tipo_medio', 'cat_tipo_medio.n_id_tipo_medio','=','pon_medio_impugnacion.n_id_tipo_medio')
           ->first();
+          /* Agregar una columna testada*/
+          error_log ($all_records);
+          error_log ($all_records->s_acto_impugnado);
+
+            $link = "<a href='some-dynamic-link'>Text to replace</a>";
+            $newText = "**testado***";
+            $testado = preg_replace('/(\*\*?).*?(\*\*)/', '$1'.$newText.'$2', $all_records->s_acto_impugnado);
+            error_log ($testado);
+            $all_records['s_acto_impugnado_testado'] = $testado;
           return response()->json(
             [   'status' => "success",
                 'message' => 'Solicitud exitosa',

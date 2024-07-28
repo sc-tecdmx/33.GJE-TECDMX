@@ -50,6 +50,27 @@ class AcuerdosController extends ApiController
         }
         return $request;
     }
+    public function showByWhere(string $field, string $value)
+    {
+        error_log('::ApiController.showByWhere ----------' . $this->db_model) ;
+        try {
+            $_db_model = $this->db_model::orderBy('d_fecha_acuerdo', 'ASC')->where( $field, $value )->get();
+
+            return response()->json(
+                [   'status' => "success",
+                    'message' => 'Solicitud exitosa',
+                    'data' => $_db_model
+                ], 200);
+
+        } catch (QueryException $ex) {
+            error_log ("ERR!  show ::" .$ex->getMessage() );
+            return response()->json([
+                'status' => "Error",
+                'message' => 'Error al consultar el Registro: /' . $field . '/' .$value ,
+                'exception' => $ex->getMessage()
+            ], 400);
+        }
+    }
 
     public function update(Request $request, $id_record)
     {
