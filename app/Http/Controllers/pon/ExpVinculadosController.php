@@ -11,7 +11,6 @@ class ExpVinculadosController extends ApiController
 {
     protected $db_model = ExpVinculados::class;
     public function byIdMedio(string $id_medio){
-        error_log('ExpVinculadosController:byIdMedio: ' . $id_medio ) ;
         try {
 
             $all_records = ExpVinculados::where('n_id_medio_impugnacion', $id_medio)->get();
@@ -22,7 +21,6 @@ class ExpVinculadosController extends ApiController
                 ], 200);
 
         } catch (QueryException $ex) {
-            error_log ("ERR!  show ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
                 'message' => 'Error al obtener los registros. ',

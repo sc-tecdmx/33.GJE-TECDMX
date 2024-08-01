@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 use Illuminate\Http\Request;
 
-class ApiController extends Controller
+abstract class ApiController extends Controller
 {
     /* Version 0.2 */
     protected $db_model;
@@ -18,14 +18,12 @@ class ApiController extends Controller
         error_log('::ApiController.index ----------' . $this->db_model ) ;
            try {
             $all_records = $this->db_model::all();
-            //-- return ;
             return response()->json(
                 [   'status' => "success",
                     'message' => 'Solicitud exitosa',
                     'data' => $all_records
                 ], 200);
         } catch (QueryException $ex) {
-
             error_log ("ERR! index ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
@@ -39,7 +37,6 @@ class ApiController extends Controller
 
     public function store(Request $request)
     {
-        error_log('::ApiController.store ----------' . $this->db_model ) ;
         try {
             $_db_model = $this->db_model::create($request->all());
             /* $_db_model->save(); */
@@ -146,6 +143,7 @@ class ApiController extends Controller
     {
         try {
             $_db_model = $this->db_model::findOrFail($id_record);
+            // TODO. Borrado lógico
             $_db_model->delete();
             return response()->json(['status' => "success", 'data' => $_db_model ], 200);
         } catch (ModelNotFoundException $ex){

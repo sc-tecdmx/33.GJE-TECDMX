@@ -55,20 +55,20 @@ class FileController extends Controller
                 ];
                 return json_encode($response);
             } else {
-                return json_encode([
+                return [
                     'status' => "Error",
                     'message' => 'Error [uploadB64] al enviar los parámetros del archivo [' . $doc->getFileName() . "]",
                     'exception' => 'DocumentoUpload incompleto.'
-                ]);
+                ];
             }
         }catch (Exception $ex) {
             error_log ("ERR! FileController:uploadB64:" .$ex->getMessage() );
-            return json_encode(
+            return 
                 [
                     'status' => "Error",
                     'message' => 'Error [uploadB64] al cargar el archivo [' . $doc->getFileName() . "]",
                     'exception' => $ex->getMessage()
-                ]);
+                ];
         }
     }
 
