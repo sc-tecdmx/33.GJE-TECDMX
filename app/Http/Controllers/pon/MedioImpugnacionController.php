@@ -12,11 +12,8 @@ class MedioImpugnacionController extends ApiController
     protected $db_model = MedioImpugnacion::class;
 
     private function upload(Request $request){
-
-        error_log('-------> MedioImpugnacion:upload' .$request->input('s_url_infografia') . ' size ' . strlen($request->input('file__b64_s_url_infografia') . ']') );
         if (! $this->isStrVacio($request->input('file__b64_s_url_infografia') ) 
             && ! $this->isStrVacio($request->input('s_url_infografia')) ) {
-                
             $response_pdf;
             $pdf = new DocumentoUpload(
                 'infografia',
@@ -61,7 +58,7 @@ class MedioImpugnacionController extends ApiController
 
     private function testar( $cadena) {
         $newText = "**testado***";
-            $testado = preg_replace('/(\*\*?).*?(\*\*)/', '$1'.$newText.'$2', $cadena);
+        $testado = preg_replace('/(\*\*?).*?(\*\*)/', '$1'.$newText.'$2', $cadena);
     }
 
     public function show( $id_record )
@@ -77,9 +74,6 @@ class MedioImpugnacionController extends ApiController
 
             $link = "<a href='some-dynamic-link'>Text to replace</a>";
             $all_records['s_acto_impugnado_testado'] = $this->testar($all_records->s_acto_impugnado);
-
-            error_log("MedioImpugnacion.show");
-            error_log( json_decode($all_records));
             return response()->json(
             [   'status' => "success",
                 'message' => 'Solicitud exitosa',
@@ -99,16 +93,12 @@ class MedioImpugnacionController extends ApiController
     {
         error_log('::ApiController.showByWhere ----------' . $this->db_model) ;
         try {
-           ////  $_db_model = $this->db_model::where( $field, $value )->get();
            $all_records = MedioImpugnacion::
                 where( $field, $value )
                 ->leftJoin('cat_ponencia', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_ponencia_instructora')
                 ->leftJoin('cat_autoridad_responsable', 'cat_autoridad_responsable.n_id_autoridad_responsable','=','pon_medio_impugnacion.n_id_autoridad_responsable')
                 ->leftJoin('cat_tipo_medio', 'cat_tipo_medio.n_id_tipo_medio','=','pon_medio_impugnacion.n_id_tipo_medio')
                 ->get();
-
-                error_log("MedioImpugnacion.showByWhere");
-                error_log( $all_records);
             return response()->json(
                 [   'status' => "success",
                     'message' => 'Solicitud exitosa',

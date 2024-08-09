@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 use Illuminate\Http\Request;
+use App\Models\pon\log\PonMedioImpugnacionLog;
 
 abstract class ApiController extends Controller
 {
@@ -33,13 +34,30 @@ abstract class ApiController extends Controller
         }
     }
 
-    
-
     public function store(Request $request)
     {
         try {
             $_db_model = $this->db_model::create($request->all());
-            /* $_db_model->save(); */
+
+            $this->logMedioImpugnacion(
+                [
+                    'n_id_medio_impugnacion' => $_db_model->n_id_medio_impugnacion,
+                    's_email_autor' => $_db_model->s_email_autor,
+                    's_publicacion' => $_db_model->s_publicacion
+                ]
+            );
+
+            error_log( json_encode($request->all() ) ) ;
+            error_log( json_encode( $request->n_id_medio_impugnacion  ) ) ;
+
+            $this->logMedioImpugnacion(
+                [
+                    'n_id_medio_impugnacion' => $request->n_id_medio_impugnacion,
+                    's_email_autor'          => $request->s_email_autor,
+                    's_publicacion'          => $request->s_publicacion
+                ]
+            );
+            
             return response()->json(
                 [   'status' => "success",
                     'message' => 'Registro exitoso',
@@ -110,6 +128,18 @@ abstract class ApiController extends Controller
         try {
             $_db_model = $this->db_model::findOrFail( $id_record );
             $_db_model->update( $request->all() ) ;
+
+            error_log( json_encode($request->all() ) ) ;
+            error_log( json_encode( $request->n_id_medio_impugnacion  ) ) ;
+
+            $this->logMedioImpugnacion(
+                [
+                    'n_id_medio_impugnacion' => $request->n_id_medio_impugnacion,
+                    's_email_autor'          => $request->s_email_autor,
+                    's_publicacion'          => $request->s_publicacion
+                ]
+            );
+
             return response()->json([
                 'status' => "success", 
                 'message' => 'Actualización exitosa',
@@ -130,6 +160,7 @@ abstract class ApiController extends Controller
                 'exception' => $ex->getMessage()
             ], 400);
         } catch (Exception $ex) {
+            error_log ( $ex );
             error_log ("ERR! 3 update ::" .$ex->getMessage() );
             return response()->json([
                 'status' => "Error",
@@ -166,5 +197,23 @@ abstract class ApiController extends Controller
     public function isStrVacio( $str ){
         $resultado = ! ( $str !== null  && $str !==''  && strlen($str) > 0  );
         return  $resultado  ;
+    }
+    
+    private function logMedioImpugnacion ($arr_fields) {
+        error_log('-- logMedioImpugnacion -- ');
+        error_log(json_encode($arr_fields) );
+        error_log($arr_fields['n_id_medio_impugnacion']  );
+        if (
+             ! $this->isStrVacio( $arr_fields['n_id_medio_impugnacion'] ) &&
+             ! $this->isStrVacio( $arr_fields['s_email_autor'] ) &&
+             ! $this->isStrVacio( $arr_fields['s_publicacion'] ) 
+        ) {
+            $log = PonMedioImpugnacionLog::create([
+                'n_id_medio_impugnacion' => $arr_fields['n_id_medio_impugnacion'],
+                's_email_autor'          => $arr_fields['s_email_autor'],
+                's_publicacion'          => $arr_fields['s_publicacion']
+            ]);        
+        }
+        
     }
 }
