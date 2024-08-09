@@ -38,7 +38,7 @@ class MedioImpugnacionController extends ApiController
     {   try {
            
         $all_records = MedioImpugnacion::
-        leftJoin('cat_ponencia', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_autoridad_responsable')
+        leftJoin('cat_ponencia', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_ponencia_instructora')
             ->leftJoin('cat_autoridad_responsable', 'cat_autoridad_responsable.n_id_autoridad_responsable','=','pon_medio_impugnacion.n_id_autoridad_responsable')
             ->leftJoin('cat_tipo_medio', 'cat_tipo_medio.n_id_tipo_medio','=','pon_medio_impugnacion.n_id_tipo_medio')
             ->get();
@@ -77,6 +77,9 @@ class MedioImpugnacionController extends ApiController
 
             $link = "<a href='some-dynamic-link'>Text to replace</a>";
             $all_records['s_acto_impugnado_testado'] = $this->testar($all_records->s_acto_impugnado);
+
+            error_log("MedioImpugnacion.show");
+            error_log( json_decode($all_records));
             return response()->json(
             [   'status' => "success",
                 'message' => 'Solicitud exitosa',
@@ -91,6 +94,37 @@ class MedioImpugnacionController extends ApiController
             ], 400);
         }
     }
+
+    public function showByWhere(string $field, string $value)
+    {
+        error_log('::ApiController.showByWhere ----------' . $this->db_model) ;
+        try {
+           ////  $_db_model = $this->db_model::where( $field, $value )->get();
+           $all_records = MedioImpugnacion::
+                where( $field, $value )
+                ->leftJoin('cat_ponencia', 'cat_ponencia.n_id_ponencia','=','pon_medio_impugnacion.n_id_ponencia_instructora')
+                ->leftJoin('cat_autoridad_responsable', 'cat_autoridad_responsable.n_id_autoridad_responsable','=','pon_medio_impugnacion.n_id_autoridad_responsable')
+                ->leftJoin('cat_tipo_medio', 'cat_tipo_medio.n_id_tipo_medio','=','pon_medio_impugnacion.n_id_tipo_medio')
+                ->get();
+
+                error_log("MedioImpugnacion.showByWhere");
+                error_log( $all_records);
+            return response()->json(
+                [   'status' => "success",
+                    'message' => 'Solicitud exitosa',
+                    'data' => $all_records
+                ], 200);
+
+        } catch (QueryException $ex) {
+            error_log ("ERR!  show ::" .$ex->getMessage() );
+            return response()->json([
+                'status' => "Error",
+                'message' => 'Error al consultar el Registro: /' . $field . '/' .$value ,
+                'exception' => $ex->getMessage()
+            ], 400);
+        }
+    }
+
 
     public function update(Request $request, $id_record)
     {
